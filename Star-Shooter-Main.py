@@ -7,19 +7,19 @@ pygame.init()
 
 screen = pygame.display.set_mode((800, 600))
 
-background = pygame.image.load('Desktop/Star-Shooter/space.png')
+background = pygame.image.load('space.png')
 
-mixer.music.load("Desktop/Star-Shooter/Background.wav")
+mixer.music.load("Background.wav")
 mixer.music.play(-1)
 
 
-bullet = pygame.image.load("Desktop/Star-Shooter/bullet.png")
+bullet = pygame.image.load("bullet.png")
 
 pygame.display.set_caption("Star-Shooter")
-icon = pygame.image.load("Desktop/Star-Shooter/spaceship.png")
+icon = pygame.image.load("spaceship.png")
 pygame.display.set_icon(icon)
 
-player_img = pygame.image.load("Desktop/Star-Shooter/spaceship_1.png")
+player_img = pygame.image.load("spaceship_1.png")
 player_x = 370
 player_y = 480
 player_x_change = 0
@@ -35,7 +35,7 @@ num_of_enemies = 2
 enemy_x_change_increase = 1
 enemy_y_change_increase = 6
 
-bullet = pygame.image.load("Desktop/Star-Shooter/bullet.png")
+bullet = pygame.image.load("bullet.png")
 bullet_x = 0
 bullet_y = 480
 bullet_x_change = 0
@@ -43,12 +43,12 @@ bullet_y_change = 10
 bullet_state = "ready"
 
 score_value = 0
-font = pygame.font.Font("Desktop/Star-Shooter/Stars Fighters Upright.ttf", 16)
+font = pygame.font.Font("Stars Fighters Upright.ttf", 16)
 
 text_x = 10
 text_y = 10
 
-over = pygame.font.Font("Desktop/Star-Shooter/Stars Fighters Upright.ttf", 32)
+over = pygame.font.Font("Stars Fighters Upright.ttf", 32)
 
 def show_score(x, y):
     score = font.render("Points: " + str(score_value * points), True, (255, 255, 255))
@@ -89,13 +89,13 @@ while running:
                 running = False
         if dead_counter < 100:
             game_over_text(200, 250)
-            player_img = pygame.image.load("Desktop/Star-Shooter/flame.png")
+            player_img = pygame.image.load("flame.png")
             player(player_x, player_y)
             show_score(275, 325)
             pygame.display.update()
         if dead_counter > 101:
             game_over_text(200, 250)
-            player_img = pygame.image.load("Desktop/Star-Shooter/skull.png")
+            player_img = pygame.image.load("skull.png")
             player(player_x, player_y)
             show_score(275, 325)
             pygame.display.update()
@@ -115,17 +115,17 @@ while running:
         enemy_x_change_increase += .0003
         enemy_y_change_increase += .005
         points = 100
-    elif score_value > 6:
+    elif score_value > 5:
         enemy_x_change_increase += .0001
         enemy_y_change_increase += .003
         points = 50
-    elif num_of_enemies > 6:
+    elif num_of_enemies > 5:
         num_of_enemies -= 1
     elif score_value > num_of_enemies:
         num_of_enemies += 1
         
     for i in range(num_of_enemies):
-        enemy_img.append(pygame.image.load("Desktop/Star-Shooter/alien.png"))
+        enemy_img.append(pygame.image.load("alien.png"))
         enemy_x.append(random.randint(0, 735))
         enemy_y.append(0)
         enemy_x_change.append(enemy_x_change_increase)
@@ -143,7 +143,7 @@ while running:
                 player_x_change = 5
             if event.key == pygame.K_SPACE:
                 if bullet_state is "ready":
-                    bullet_sound = mixer.Sound("Desktop/Star-Shooter/laser.wav")
+                    bullet_sound = mixer.Sound("laser.wav")
                     bullet_sound.play()
                     bullet_x = player_x
                     fire_bullet(bullet_x, bullet_y)
@@ -168,7 +168,7 @@ while running:
     for i in range(num_of_enemies):
      
         if enemy_y[i] > 440:
-            explosion_sound = mixer.Sound("Desktop/Star-Shooter/explosion.wav")
+            explosion_sound = mixer.Sound("explosion.wav")
             explosion_sound.play()
             dead = True
             
@@ -183,12 +183,12 @@ while running:
 
         collision = is_collision(enemy_x[i], enemy_y[i], bullet_x, bullet_y)
         if collision:
-            explosion_sound = mixer.Sound("Desktop/Star-Shooter/explosion.wav")
+            explosion_sound = mixer.Sound("explosion.wav")
             explosion_sound.play()
             bullet_y = 480
             bullet_state = "ready"
             score_value += 1
-            enemy_img[i] = pygame.image.load("Desktop/Star-Shooter/alien.png")
+            enemy_img[i] = pygame.image.load("alien.png")
             enemy_x[i] = random.randint(0, 735)
             enemy_y[i] = 0
             
@@ -198,7 +198,7 @@ while running:
         for i in range(num_of_enemies):
      
             if enemy_y[i] > 440:
-                explosion_sound = mixer.Sound("Desktop/Star-Shooter/explosion.wav")
+                explosion_sound = mixer.Sound("explosion.wav")
                 explosion_sound.play()
                 dead = True
                 
@@ -213,12 +213,12 @@ while running:
 
             collision = is_collision(enemy_x[i], enemy_y[i], bullet_x, bullet_y)
             if collision:
-                explosion_sound = mixer.Sound("Desktop/Star-Shooter/explosion.wav")
+                explosion_sound = mixer.Sound("explosion.wav")
                 explosion_sound.play()
                 bullet_y = 480
                 bullet_state = "ready"
                 score_value += 1
-                enemy_img[i] = pygame.image.load("Desktop/Star-Shooter/alien.png")
+                enemy_img[i] = pygame.image.load("alien.png")
                 enemy_x[i] = random.randint(0, 735)
                 enemy_y[i] = 0
                 
