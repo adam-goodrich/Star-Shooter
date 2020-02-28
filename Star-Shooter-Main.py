@@ -43,7 +43,7 @@ bullet_y_change = 10
 bullet_state = "ready"
 
 score_value = 0
-font = pygame.font.Font("Desktop/Star-Shooter/Stars Fighters Upright.ttf", 20)
+font = pygame.font.Font("Desktop/Star-Shooter/Stars Fighters Upright.ttf", 16)
 
 text_x = 10
 text_y = 10
@@ -51,7 +51,7 @@ text_y = 10
 over = pygame.font.Font("Desktop/Star-Shooter/Stars Fighters Upright.ttf", 32)
 
 def show_score(x, y):
-    score = font.render("Score: " + str(score_value), True, (255, 255, 255))
+    score = font.render("Points: " + str(score_value * points), True, (255, 255, 255))
     screen.blit(score, (x, y))
 
 def game_over_text(x, y):
@@ -75,6 +75,7 @@ def is_collision(enemy_x, enemy_y, bullet_x, bullet_y):
         return True
     else:
         return False
+points = 10
 dead = False
 running = True
 while running:
@@ -104,15 +105,19 @@ while running:
     if score_value > 75:
         enemy_x_change_increase += .009
         enemy_y_change_increase += .05
+        points = 200
     elif score_value > 50:
         enemy_x_change_increase += .005
         enemy_y_change_increase += .005
+        points = 150
     elif score_value > 25:
         enemy_x_change_increase += .003
         enemy_y_change_increase += .003
+        points = 100
     elif score_value > 6:
         enemy_x_change_increase += .001
         enemy_y_change_increase += .001
+        points = 50
     elif num_of_enemies > 6:
         num_of_enemies -= 1
         enemy_x_change_increase -= 1
