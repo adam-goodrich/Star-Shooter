@@ -103,17 +103,17 @@ while running:
     
     if score_value > 75:
         enemy_x_change_increase += .009
-        enemy_y_change_increase += .009
+        enemy_y_change_increase += .05
     elif score_value > 50:
         enemy_x_change_increase += .005
         enemy_y_change_increase += .005
     elif score_value > 25:
         enemy_x_change_increase += .003
         enemy_y_change_increase += .003
-    elif score_value > 8:
+    elif score_value > 6:
         enemy_x_change_increase += .001
         enemy_y_change_increase += .001
-    elif num_of_enemies > 8:
+    elif num_of_enemies > 6:
         num_of_enemies -= 1
         enemy_x_change_increase -= 1
         enemy_y_change_increase -= 1
