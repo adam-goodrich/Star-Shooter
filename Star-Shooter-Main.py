@@ -32,8 +32,8 @@ enemy_x_change = []
 enemy_y_change = []
 num_of_enemies = 2
 
-enemy_x_change_increase = 3
-enemy_y_change_increase = 10
+enemy_x_change_increase = 1
+enemy_y_change_increase = 6
 
 bullet = pygame.image.load("Desktop/Star-Shooter/bullet.png")
 bullet_x = 0
@@ -102,30 +102,28 @@ while running:
 
         
     
-    if score_value > 75:
-        enemy_x_change_increase += .009
+    if score_value > 100:
         enemy_y_change_increase += .05
+        points = 500
+    elif score_value > 75:
+        enemy_y_change_increase += .012
         points = 200
     elif score_value > 50:
-        enemy_x_change_increase += .005
-        enemy_y_change_increase += .005
+        enemy_y_change_increase += .008
         points = 150
     elif score_value > 25:
-        enemy_x_change_increase += .003
-        enemy_y_change_increase += .003
+        enemy_x_change_increase += .0003
+        enemy_y_change_increase += .005
         points = 100
     elif score_value > 6:
-        enemy_x_change_increase += .001
-        enemy_y_change_increase += .001
+        enemy_x_change_increase += .0001
+        enemy_y_change_increase += .003
         points = 50
     elif num_of_enemies > 6:
         num_of_enemies -= 1
-        enemy_x_change_increase -= 1
-        enemy_y_change_increase -= 1
     elif score_value > num_of_enemies:
         num_of_enemies += 1
-        enemy_x_change_increase += 1
-        enemy_y_change_increase += 1
+        
     for i in range(num_of_enemies):
         enemy_img.append(pygame.image.load("Desktop/Star-Shooter/alien.png"))
         enemy_x.append(random.randint(0, 735))
@@ -174,8 +172,6 @@ while running:
             explosion_sound.play()
             dead = True
             
-
-
         enemy_x[i] += enemy_x_change[i]
 
         if enemy_x[i] <= 0:
@@ -198,6 +194,36 @@ while running:
             
 
         enemy(enemy_x[i], enemy_y[i], i)
+
+        for i in range(num_of_enemies):
+     
+            if enemy_y[i] > 440:
+                explosion_sound = mixer.Sound("Desktop/Star-Shooter/explosion.wav")
+                explosion_sound.play()
+                dead = True
+                
+            enemy_x[i] += enemy_x_change[i]
+
+            if enemy_x[i] <= 0:
+                enemy_x_change[i] = enemy_x_change_increase
+                enemy_y[i] += enemy_y_change_increase
+            elif enemy_x[i] >= 736:
+                enemy_x_change[i] = -(enemy_x_change_increase)
+                enemy_y[i] += enemy_y_change_increase
+
+            collision = is_collision(enemy_x[i], enemy_y[i], bullet_x, bullet_y)
+            if collision:
+                explosion_sound = mixer.Sound("Desktop/Star-Shooter/explosion.wav")
+                explosion_sound.play()
+                bullet_y = 480
+                bullet_state = "ready"
+                score_value += 1
+                enemy_img[i] = pygame.image.load("Desktop/Star-Shooter/alien.png")
+                enemy_x[i] = random.randint(0, 735)
+                enemy_y[i] = 0
+                
+
+            enemy(enemy_x[i], enemy_y[i], i)
         
 
     
